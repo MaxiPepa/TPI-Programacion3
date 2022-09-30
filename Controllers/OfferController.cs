@@ -4,27 +4,27 @@ using TPI_Programación3.Entities;
 
 namespace TPI_Programación3.Controllers
 {
-    public class UserController : Controller
+    public class OfferController : Controller
     {
-        // GET: UserController
+        // GET: OfferController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: UserController/Details/5
+        // GET: OfferController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UserController/Create
+        // GET: OfferController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UserController/Create
+        // POST: OfferController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -39,13 +39,13 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        // GET: UserController/Edit/5
+        // GET: OfferController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UserController/Edit/5
+        // POST: OfferController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -60,13 +60,13 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        // GET: UserController/Delete/5
+        // GET: OfferController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UserController/Delete/5
+        // POST: OfferController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -81,15 +81,14 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        [HttpGet("[controller]/ListUsers")]
-        public IEnumerable<User> ListUsers()
+        [HttpGet("[controller]/ListOffer")]
+        public IEnumerable<Offer> ListOffer()
         {
-            return Enumerable.Range(1, 5).Select(index => new User
+            return Enumerable.Range(1, 5).Select(index => new Offer
             {
-                FullName = "Alejo",
-                Email = "alejo@gmail.com",
-                Password = index.ToString(),
-                Role = "Administrator"
+                Name = "Licuadora",
+                Description = "Es literalmente una licuadora",
+                Categories = new Category
 
             })
             .ToArray();

@@ -3,7 +3,7 @@
     public class Category
     {
         public string Name { get; set; }
-        public List<Offer> Offers { get; set; }
+        public List<Offer>? Offers { get; set; }
 
     }
 }
