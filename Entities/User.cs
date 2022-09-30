@@ -5,7 +5,12 @@
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public enum Role { Common, Administrator}
+        public string Role { get; set; }
+
+        public string LoadUser()
+        {
+            return Enums.Role.Administrator.ToString();
+        }
 
         public void ChangeName()
         {
