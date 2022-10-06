@@ -88,8 +88,10 @@ namespace TPI_Programación3.Controllers
             {
                 Name = "Licuadora",
                 Description = "Es literalmente una licuadora",
-                Categories = new Category
-
+                Category = "Electrodoméstico",
+                ImgLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fes%2Ffotos%2Flicuadora&psig=AOvVaw1Xo6fC2dqLh9_8zqD8AGuJ&ust=1665099769965000&source=images&cd=vfe&ved=0CAkQjRxqFwoTCNCMkJWiyvoCFQAAAAAdAAAAABAD",
+                CreatorEmail = "juanrodriguez@gmail.com",
+                PreferedItem = "Batidora"
             })
             .ToArray();
         }
