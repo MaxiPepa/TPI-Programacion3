@@ -5,16 +5,14 @@ using TPI_Programación3.Entities;
 namespace TPI_Programación3.Controllers
 {
     public class UserController : Controller
-
-
     {
-        List<User> _user = new()
+        List<User> _users = new()
         {
-            new User(1,"Alejo", "alejo@gmail.com", "123", "Common"),
-            new User(2,"Gaston", "gaston_elcapo@gmail.com", "abc", "Common"),
-            new User(3,"Maxi", "elmassi@gmail.com", "789", "Common"),
-            new User(4,"Milton", "milton_tucson_tuki@gmail.com", "qwe", "Administrator"),
-            new User(5,"Pedro", "pedrito@gmail.com", "cxz", "Administrator"),
+            new User(1, "Alejo", "alejo@gmail.com", "123", "Common"),
+            new User(2, "Gaston", "gaston_elcapo@gmail.com", "abc", "Common"),
+            new User(3, "Maxi", "elmassi@gmail.com", "789", "Common"),
+            new User(4, "Milton", "milton_tucson_tuki@gmail.com", "qwe", "Administrator"),
+            new User(5, "Pedro", "pedrito@gmail.com", "cxz", "Administrator"),
         };
 
         // GET: UserController
@@ -72,19 +70,28 @@ namespace TPI_Programación3.Controllers
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteEX(int id)
         {
             return View();
         }
 
         // POST: UserController/Delete/5
-        [HttpPost]
+        [HttpDelete("[controller]/DeleteUser/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var user = _users.Find(u => u.Id == id);
+                if (user == null)
+                {
+                    return View();
+                }
+                else
+                {
+                    _users.Remove(user);
+                    return View();
+                }
             }
             catch
             {
@@ -95,15 +102,7 @@ namespace TPI_Programación3.Controllers
         [HttpGet("[controller]/ListUsers")]
         public IEnumerable<User> ListUsers()
         {
-            return Enumerable.Range(1, 5).Select(index => new User
-            {
-                FullName = "Alejo",
-                Email = "alejo@gmail.com",
-                Password = index.ToString(),
-                Role = "Administrator"
-
-            })
-            .ToArray();
+            return _users;
         }
     }
 }
