@@ -25,7 +25,6 @@ namespace TPI_Programación3.Controllers
         public IEnumerable<User> Delete(int id)
         {
             var user = _users.Find(u => u.Id == id);
-            Console.WriteLine(user);
 
             if (user == null)
             {

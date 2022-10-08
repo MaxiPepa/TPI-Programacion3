@@ -22,5 +22,28 @@ namespace TPI_Programación3.Controllers
         {
             return _offers;
         }
+
+        [HttpDelete("[controller]/DeleteOffer/{id}")]
+        public IEnumerable<Offer> Delete(int id)
+        {
+            var offer = _offers.Find(u => u.Id == id);
+
+            if (offer == null)
+            {
+                return _offers;
+            }
+            else
+            {
+                _offers.Remove(offer);
+                return _offers;
+            }
+        }
+
+        [HttpPost("[controller]/AddOffer/{id}/{name}/{description}/{category}/{imgLink}/{creatorEmail}/{preferedItem}")]
+        public IEnumerable<Offer> Add(int id, string name, string description, string category, string imgLink, string creatorEmail, string? preferedItem)
+        {
+            _offers.Add(new Offer(id, name, description, category, imgLink, creatorEmail, preferedItem));
+            return _offers;
+        }
     }
 }
