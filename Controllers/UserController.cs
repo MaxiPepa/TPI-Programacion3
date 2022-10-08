@@ -38,7 +38,7 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        [HttpPost("[controller]/Add/{id}/{fullName}/{email}/{password}/{role}")]
+        [HttpPost("[controller]/AddUser/{id}/{fullName}/{email}/{password}/{role}")]
         public IEnumerable<User> Add(int id, string fullName, string email, string password, string role)
         {
             _users.Add(new User(id, fullName, email, password, role));
