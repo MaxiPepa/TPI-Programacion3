@@ -15,94 +15,35 @@ namespace TPI_Programación3.Controllers
             new User(5, "Pedro", "pedrito@gmail.com", "cxz", "Administrator"),
         };
 
-        // GET: UserController
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: UserController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UserController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Delete/5
-        public ActionResult DeleteEX(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController/Delete/5
-        [HttpDelete("[controller]/DeleteUser/{id}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            try
-            {
-                var user = _users.Find(u => u.Id == id);
-                if (user == null)
-                {
-                    return View();
-                }
-                else
-                {
-                    _users.Remove(user);
-                    return View();
-                }
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         [HttpGet("[controller]/ListUsers")]
         public IEnumerable<User> ListUsers()
         {
             return _users;
         }
+
+        [HttpDelete("[controller]/DeleteUser/{id}")]
+        public IEnumerable<User> Delete(int id)
+        {
+            var user = _users.Find(u => u.Id == id);
+            Console.WriteLine(user);
+
+            if (user == null)
+            {
+                return _users;
+            }
+            else
+            {
+                this._users.Remove(user);
+                return _users;
+            }
+        }
+
+        [HttpPost("[controller]/Add/{id}/{fullName}/{email}/{password}/{role}")]
+        public IEnumerable<User> Add(int id, string fullName, string email, string password, string role)
+        {
+            this._users.Add(new User(id, fullName, email, password, role));
+            return _users;
+        }
+
     }
 }
