@@ -18,7 +18,7 @@ namespace TPI_Programación3.Controllers
         };
 
         [HttpGet("[controller]/ListOffer")]
-        public IEnumerable<Offer> ListOffer()
+        public IEnumerable<Offer> List()
         {
             return _offers;
         }
