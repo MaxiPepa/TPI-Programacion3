@@ -16,7 +16,7 @@ namespace TPI_Programación3.Controllers
         };
 
         [HttpGet("[controller]/ListUsers")]
-        public IEnumerable<User> ListUsers()
+        public IEnumerable<User> List()
         {
             return _users;
         }
@@ -33,7 +33,7 @@ namespace TPI_Programación3.Controllers
             }
             else
             {
-                this._users.Remove(user);
+                _users.Remove(user);
                 return _users;
             }
         }
@@ -41,7 +41,7 @@ namespace TPI_Programación3.Controllers
         [HttpPost("[controller]/Add/{id}/{fullName}/{email}/{password}/{role}")]
         public IEnumerable<User> Add(int id, string fullName, string email, string password, string role)
         {
-            this._users.Add(new User(id, fullName, email, password, role));
+            _users.Add(new User(id, fullName, email, password, role));
             return _users;
         }
 
