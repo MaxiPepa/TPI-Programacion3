@@ -38,7 +38,7 @@ namespace TPI_Programación3.Controllers
                 offerList.Add(response);
             }
 
-            return Created("List of users", offerList);
+            return Created("List of offers", offerList);
         }
 
         [HttpDelete("[controller]/DeleteOffer")]

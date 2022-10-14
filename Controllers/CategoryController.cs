@@ -40,7 +40,7 @@ namespace TPI_Programación3.Controllers
                 categoryNameList.Add(response.Name);
             }
 
-            return Created("List of users", categoryNameList);
+            return Created("List of categories", categoryNameList);
         }
 
         [HttpDelete("[controller]/DeleteCategory")]
