@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
+using TPI_Programación3.Models;
 
 namespace TPI_Programación3.Controllers
 {
     public class OfferController : Controller
     {
 
-        List<Offer> _offers = new()
+        public static List<Offer> _offers = new()
         {
 
             new Offer(1, "Licuadora", "Es literalmente una licuadora", "Electrodoméstico", "https://url24.top/vJGZp", "alejo@gmail.com", "Batidora"),
@@ -18,32 +19,76 @@ namespace TPI_Programación3.Controllers
         };
 
         [HttpGet("[controller]/ListOffer")]
-        public IEnumerable<Offer> List()
+        public IActionResult ListOffers()
         {
-            return _offers;
+            List<OfferResponse> offerList = new();
+
+            foreach (var offer in _offers)
+            {
+                OfferResponse response = new()
+                {
+                    Name = offer.Name,
+                    Description = offer.Description,
+                    Category = offer.Category,
+                    ImgLink = offer.ImgLink,
+                    CreatorEmail = offer.CreatorEmail,
+                    PreferedItem = offer.PreferedItem
+                };
+
+                offerList.Add(response);
+            }
+
+            return Created("List of users", offerList);
         }
 
-        [HttpDelete("[controller]/DeleteOffer/{id}")]
-        public IEnumerable<Offer> Delete(int id)
+        [HttpDelete("[controller]/DeleteOffer")]
+        public IActionResult DeleteOffer(int id)
         {
-            var offer = _offers.Find(u => u.Id == id);
+            try
+            {
+                var offer = _offers.Find(u => u.Id == id);
 
-            if (offer == null)
-            {
-                return _offers;
+                if (offer == null)
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    _offers.Remove(offer);
+                    return Created("Succesfully deleted", offer);
+
+                }
             }
-            else
+            catch
             {
-                _offers.Remove(offer);
-                return _offers;
+                return Problem("Offer not found");
             }
         }
 
-        [HttpPost("[controller]/AddOffer/{id}/{name}/{description}/{category}/{imgLink}/{creatorEmail}/{preferedItem}")]
-        public IEnumerable<Offer> Add(int id, string name, string description, string category, string imgLink, string creatorEmail, string? preferedItem)
+        [HttpPost("[controller]/AddOffer")]
+        public IActionResult AddOffer(AddOfferRequest dto)
         {
-            _offers.Add(new Offer(id, name, description, category, imgLink, creatorEmail, preferedItem));
-            return _offers;
+            try
+            {
+                Offer offer = new(_offers.Max(x => x.Id), dto.Name, dto.Description, dto.Category, dto.ImgLink, dto.CreatorEmail, dto.PreferedItem);
+
+                OfferResponse response = new()
+                {
+                    Name = offer.Name,
+                    Description = offer.Description,
+                    Category = offer.Category,
+                    ImgLink = offer.ImgLink,
+                    CreatorEmail = offer.CreatorEmail,
+                    PreferedItem = offer.PreferedItem
+                };
+
+                _offers.Add(offer);
+                return Created("Succesfully created!", response);
+            }
+            catch (Exception error)
+            {
+                return Problem(error.Message);
+            }
         }
     }
 }
