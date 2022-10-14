@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
+using TPI_Programación3.Models;
 
 namespace TPI_Programación3.Controllers
 {
     public class UserController : Controller
     {
-        List<User> _users = new()
+        public static List<User> _users = new()
         {
             new User(1, "Alejo", "alejo@gmail.com", "123", "Common"),
             new User(2, "Gaston", "gaston_elcapo@gmail.com", "abc", "Common"),
@@ -16,32 +17,69 @@ namespace TPI_Programación3.Controllers
         };
 
         [HttpGet("[controller]/ListUsers")]
-        public IEnumerable<User> List()
+        public IActionResult ListUsers()
         {
-            return _users;
+            List<UserResponse> userList = new();
+
+            foreach (var user in _users)
+            {
+                UserResponse response = new ()
+                {
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    Role = user.Role
+                };
+
+                userList.Add(response);
+            }
+
+            return Created("List of users", userList);
         }
 
-        [HttpDelete("[controller]/DeleteUser/{id}")]
-        public IEnumerable<User> Delete(int id)
+        [HttpDelete("[controller]/DeleteUser")]
+        public IActionResult DeleteUser(int id)
         {
-            var user = _users.Find(u => u.Id == id);
+            try
+            {
+                var user = _users.Find(u => u.Id == id);
 
-            if (user == null)
-            {
-                return _users;
+                if(user == null)
+                {
+                    throw new Exception();
+                } else
+                {
+                    _users.Remove(user);
+                    return Created("Succesfully deleted", user);
+
+                }
             }
-            else
+            catch
             {
-                _users.Remove(user);
-                return _users;
+                return Problem("User not found");
             }
         }
 
-        [HttpPost("[controller]/AddUser/{id}/{fullName}/{email}/{password}/{role}")]
-        public IEnumerable<User> Add(int id, string fullName, string email, string password, string role)
+        [HttpPost("[controller]/AddUser")]
+        public IActionResult AddUser(AddUserRequest dto)
         {
-            _users.Add(new User(id, fullName, email, password, role));
-            return _users;
+            try
+            {
+                User user = new(_users.Max(x => x.Id) + 1, dto.FullName, dto.Email, dto.Password, dto.Role);
+
+                UserResponse response = new()
+                {
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    Role = user.Role
+                };
+
+                _users.Add(user);
+                return Created("Succesfully created!", response);
+            }
+            catch(Exception error)
+            {
+                return Problem(error.Message);
+            }
         }
 
     }

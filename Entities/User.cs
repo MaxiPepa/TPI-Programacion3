@@ -17,30 +17,5 @@
             Role = role;
         }
 
-        public string LoadUser()
-        {
-            return Enums.Role.Administrator.ToString();
-        }
-
-        public void ChangeName()
-        {
-
-        }
-
-        public void ChangePassword()
-        {
-
-        }
-
-        public void DeleteOffer()
-        {
-
-        }
-
-        public void BanUser()
-        {
-
-        }
-
     }
 }
