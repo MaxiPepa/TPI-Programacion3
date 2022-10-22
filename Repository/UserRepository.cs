@@ -30,8 +30,12 @@ namespace TPI_Programación3.Repository
 
         public void Delete(int id)
         {
-            User user = storedUsers.First(x => x.Id == id);
-            storedUsers.Remove(user);
+            storedUsers.Remove(storedUsers.First(x => x.Id == id));
+        }
+
+        public void Edit(int id, string newPassword)
+        {
+            storedUsers.First(x => x.Id == id).Password = newPassword;
         }
     }
 }

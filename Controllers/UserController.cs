@@ -18,6 +18,7 @@ namespace TPI_Programación3.Controllers
         }
 
         [HttpGet]
+        [Route("listAll")]
         public IActionResult ListAll()
         {
             List<User> users = _userRepository.GetAll();
@@ -39,7 +40,7 @@ namespace TPI_Programación3.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("listOne/{id}")]
         public IActionResult ListOne(int id)
         {
             try
@@ -69,6 +70,7 @@ namespace TPI_Programación3.Controllers
         }
 
         [HttpPost]
+        [Route("addUser")]
         public IActionResult AddUser(AddUserRequest dto)
         {
             try
@@ -93,7 +95,7 @@ namespace TPI_Programación3.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("deleteUser/{id}")]
         public IActionResult DeleteUser(int id)
         {
             try
@@ -105,6 +107,21 @@ namespace TPI_Programación3.Controllers
             catch
             {
                 return Problem("User not found");
+            }
+        }
+
+        [HttpPut]
+        [Route("changePassword/{id}/{newPassword}")]
+        public IActionResult Edit(int id, string newPassword)
+        {
+            try
+            {
+                _userRepository.Edit(id, newPassword);
+                return Ok("Succesfully edited");
+            }
+            catch
+            {
+                return Problem("Offer not found");
             }
         }
     }

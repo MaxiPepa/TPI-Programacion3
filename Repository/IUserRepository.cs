@@ -11,5 +11,7 @@ namespace TPI_Programación3.Repository
         public void Add(User user);
 
         public void Delete(int id);
+
+        public void Edit(int id, string newPassword);
     }
 }

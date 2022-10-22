@@ -2,28 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
 using TPI_Programación3.Models;
+using TPI_Programación3.Repository;
 
 namespace TPI_Programación3.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OfferController : Controller
     {
+        private readonly IOfferRepository _offerRepository;
 
-        public static List<Offer> _offers = new()
+        public OfferController(IOfferRepository offerRepository)
         {
+            _offerRepository = offerRepository;
+        }
 
-            new Offer(1, "Licuadora", "Es literalmente una licuadora", "Electrodoméstico", "https://url24.top/vJGZp", "alejo@gmail.com", "Batidora"),
-            new Offer(2, "Tostadora", "Sirve para tostar pan", "Electrodoméstico", "https://url24.top/AvyPV", "gaston_elcapo@gmail.com", "Tostadora"),
-            new Offer(3, "Auto", "Corsita 2009", "Vehiculo", "https://url24.top/hqPKD", "elmassi@gmail.com", "Auto"),
-            new Offer(4, "Casa", "Casa dos pisos", "Inmueble", "https://url24.top/lPhra", "milton_tucson_tuki@gmail.com", "Vivienda"),
-            new Offer(5, "Figurita", "La figurita de Messi", "Mundial", "https://url24.top/TvJrw", "pedrito@gmail.com", "Mundial"),
-        };
-
-        [HttpGet("[controller]/ListOffer")]
+        [HttpGet]
+        [Route("listOffer")]
         public IActionResult ListOffers()
         {
+            List<Offer> offers = _offerRepository.GetAll();
             List<OfferResponse> offerList = new();
 
-            foreach (var offer in _offers)
+
+            foreach (var offer in offers)
             {
                 OfferResponse response = new()
                 {
@@ -41,23 +43,15 @@ namespace TPI_Programación3.Controllers
             return Created("List of offers", offerList);
         }
 
-        [HttpDelete("[controller]/DeleteOffer")]
+
+        [HttpDelete]
+        [Route("deleteOffer/{id}")]
         public IActionResult DeleteOffer(int id)
         {
             try
             {
-                var offer = _offers.Find(u => u.Id == id);
-
-                if (offer == null)
-                {
-                    throw new Exception();
-                }
-                else
-                {
-                    _offers.Remove(offer);
-                    return Created("Succesfully deleted", offer);
-
-                }
+                _offerRepository.Delete(id);
+                return Ok("Succesfully deleted");
             }
             catch
             {
@@ -65,12 +59,14 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        [HttpPost("[controller]/AddOffer")]
+        [HttpPost]
+        [Route("addOffer")]
         public IActionResult AddOffer(AddOfferRequest dto)
         {
             try
             {
-                Offer offer = new(_offers.Max(x => x.Id), dto.Name, dto.Description, dto.Category, dto.ImgLink, dto.CreatorEmail, dto.PreferedItem);
+                List<Offer> offers = _offerRepository.GetAll();
+                Offer offer = new(offers.Max(x => x.Id) + 1, dto.Name, dto.Description, dto.Category, dto.ImgLink, dto.CreatorEmail, dto.PreferedItem);
 
                 OfferResponse response = new()
                 {
@@ -82,12 +78,28 @@ namespace TPI_Programación3.Controllers
                     PreferedItem = offer.PreferedItem
                 };
 
-                _offers.Add(offer);
+                _offerRepository.Add(offer);
                 return Created("Succesfully created!", response);
             }
             catch (Exception error)
             {
                 return Problem(error.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("editOffer/{id}/{newValue}/{field}")]
+
+        public IActionResult Edit(int id, string newValue, string field)
+        {
+            try
+            {
+                _offerRepository.Edit(id, newValue, field);
+                return Ok("Succesfully edited");
+            }
+            catch
+            {
+                return Problem("Offer not found");
             }
         }
     }
