@@ -2,28 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
 using TPI_Programación3.Models;
+using TPI_Programación3.Repository;
 
 namespace TPI_Programación3.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
-        public static List<User> _users = new()
-        {
-            new User(1, "Alejo", "alejo@gmail.com", "123", "Common"),
-            new User(2, "Gaston", "gaston_elcapo@gmail.com", "abc", "Common"),
-            new User(3, "Maxi", "elmassi@gmail.com", "789", "Common"),
-            new User(4, "Milton", "milton_tucson_tuki@gmail.com", "qwe", "Administrator"),
-            new User(5, "Pedro", "pedrito@gmail.com", "cxz", "Administrator"),
-        };
+        private readonly IUserRepository _userRepository;
 
-        [HttpGet("[controller]/ListUsers")]
-        public IActionResult ListUsers()
+        public UserController(IUserRepository userRepository)
         {
+            _userRepository = userRepository;
+        }
+
+        [HttpGet]
+        public IActionResult ListAll()
+        {
+            List<User> users = _userRepository.GetAll();
             List<UserResponse> userList = new();
 
-            foreach (var user in _users)
+            foreach (var user in users)
             {
-                UserResponse response = new ()
+                UserResponse response = new()
                 {
                     FullName = user.FullName,
                     Email = user.Email,
@@ -36,35 +38,43 @@ namespace TPI_Programación3.Controllers
             return Created("List of users", userList);
         }
 
-        [HttpDelete("[controller]/DeleteUser")]
-        public IActionResult DeleteUser(int id)
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult ListOne(int id)
         {
             try
             {
-                var user = _users.Find(u => u.Id == id);
+                User? user = _userRepository.GetOne(id);
 
-                if(user == null)
+                if (user != null)
+                {
+                    UserResponse response = new()
+                    {
+                        FullName = user.FullName,
+                        Email = user.Email,
+                        Role = user.Role
+                    };
+
+                    return Ok(response);
+                }
+                else
                 {
                     throw new Exception();
-                } else
-                {
-                    _users.Remove(user);
-                    return Created("Succesfully deleted", user);
-
                 }
-            }
-            catch
+            } 
+            catch (Exception error)
             {
-                return Problem("User not found");
+                return Problem(error.Message);
             }
         }
 
-        [HttpPost("[controller]/AddUser")]
+        [HttpPost]
         public IActionResult AddUser(AddUserRequest dto)
         {
             try
             {
-                User user = new(_users.Max(x => x.Id) + 1, dto.FullName, dto.Email, dto.Password, dto.Role);
+                List<User> users = _userRepository.GetAll();
+                User user = new(users.Max(x => x.Id) + 1, dto.FullName, dto.Email, dto.Password, dto.Role);
 
                 UserResponse response = new()
                 {
@@ -73,7 +83,7 @@ namespace TPI_Programación3.Controllers
                     Role = user.Role
                 };
 
-                _users.Add(user);
+                _userRepository.Add(user);
                 return Created("Succesfully created!", response);
             }
             catch(Exception error)
@@ -82,5 +92,20 @@ namespace TPI_Programación3.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                _userRepository.Delete(id);
+                return Ok("Succesfully deleted");
+
+            }
+            catch
+            {
+                return Problem("User not found");
+            }
+        }
     }
 }
