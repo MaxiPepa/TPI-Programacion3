@@ -2,13 +2,15 @@
 {
     public class Category
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<Offer>? Offers { get; set; }
+        public int OfferQuantity { get; set; }
 
-        public Category(string name, List<Offer>? offers)
+        public Category(int id, string name, int offerQuantity)
         {
+            Id = id;
             Name = name;
-            Offers = offers;
+            OfferQuantity = offerQuantity;
         }
     }
 }

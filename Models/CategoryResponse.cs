@@ -3,6 +3,6 @@
     public class CategoryResponse
     {
         public string Name { get; set; }
-        public List<Entities.Offer>? Offers { get; set; }
+        public int OfferQuantity { get; set; }
     }
 }

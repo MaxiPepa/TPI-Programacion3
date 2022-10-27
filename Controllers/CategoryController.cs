@@ -2,64 +2,48 @@
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
 using TPI_Programación3.Models;
+using TPI_Programación3.Repository;
 
 namespace TPI_Programación3.Controllers
 {
     public class CategoryController : Controller
     {
-        public static List<Offer> _offers = new()
-        {
-            new Offer(1, "Licuadora", "Es literalmente una licuadora", "Electrodoméstico", "https://url24.top/vJGZp", "alejo@gmail.com", "Batidora"),
-            new Offer(2, "Tostadora", "Sirve para tostar pan", "Electrodoméstico", "https://url24.top/AvyPV", "gaston_elcapo@gmail.com", "Tostadora"),
-            new Offer(3, "Auto", "Corsita 2009", "Vehiculo", "https://url24.top/hqPKD", "elmassi@gmail.com", "Auto"),
-            new Offer(4, "Casa", "Casa dos pisos", "Inmueble", "https://url24.top/lPhra", "milton_tucson_tuki@gmail.com", "Vivienda"),
-            new Offer(5, "Figurita", "La figurita de Messi", "Mundial", "https://url24.top/TvJrw", "pedrito@gmail.com", "Mundial"),
-        };
+        private readonly ICategoryRepository _categoryRepository;
 
-        public static List<Category> _categories = new()
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            new Category("Electrodomésticos", _offers),
-            new Category("Vehiculo", _offers),
-            new Category("Inmueble", _offers),
-            new Category("Mundial", _offers)
-        };
+            _categoryRepository = categoryRepository;
+        }
 
-        [HttpGet("[controller]/ListCategories")]
+        [HttpGet]
+        [Route("listCategories")]
         public IActionResult ListCategories()
         {
-            List<String> categoryNameList = new();
+            List<Category> categories = _categoryRepository.GetAll();
+            List<CategoryResponse> categoryList = new();
 
-            foreach (var category in _categories)
+            foreach (var category in categories)
             {
                 CategoryResponse response = new()
                 {
                     Name = category.Name,
-                    Offers = null
+                    OfferQuantity = category.OfferQuantity
                 };
 
-                categoryNameList.Add(response.Name);
+                categoryList.Add(response);
             }
 
-            return Created("List of categories", categoryNameList);
+            return Created("List of categories", categoryList);
         }
 
-        [HttpDelete("[controller]/DeleteCategory")]
+        [HttpDelete]
+        [Route("deleteCategory/{name}")]
         public IActionResult DeleteCategory(string name)
         {
             try
             {
-                var category = _categories.Find(u => u.Name == name);
-
-                if (category == null)
-                {
-                    throw new Exception();
-                }
-                else
-                {
-                    _categories.Remove(category);
-                    return Created("Succesfully deleted", category.Name);
-
-                }
+                _categoryRepository.Delete(name);
+                return Ok("Succesfully deleted");
             }
             catch
             {
@@ -67,25 +51,57 @@ namespace TPI_Programación3.Controllers
             }
         }
 
-        [HttpPost("[controller]/AddCategory")]
+        [HttpPost]
+        [Route("addCategories")]
         public IActionResult AddCategory(AddCategoryRequest dto)
         {
             try
             {
-                Category category = new(dto.Name, dto.Offers);
+                List<Category> categories = _categoryRepository.GetAll();
+                Category category = new(categories.Max(x => x.Id) + 1, dto.Name, dto.OfferQuantity);
 
                 CategoryResponse response = new()
                 {
                     Name = dto.Name,
-                    Offers = dto.Offers
+                    OfferQuantity = dto.OfferQuantity
                 };
 
-                _categories.Add(category);
+                _categoryRepository.Add(category);
                 return Created("Succesfully created!", response);
             }
             catch (Exception error)
             {
                 return Problem(error.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("editCategoryName/{id}/{newValue}")]
+        public IActionResult EditName(int id, string newValue)
+        {
+            try
+            {
+                _categoryRepository.EditName(id, newValue);
+                return Ok("Succesfully edited");
+            }
+            catch
+            {
+                return Problem("Category not found");
+            }
+        }
+
+        [HttpPut]
+        [Route("editCategoryQuantity/{id}/{newValue}")]
+        public IActionResult EditOfferQuantity(int id, int newValue)
+        {
+            try
+            {
+                _categoryRepository.EditOfferQuantity(id, newValue);
+                return Ok("Succesfully edited");
+            }
+            catch
+            {
+                return Problem("Category not found");
             }
         }
     }

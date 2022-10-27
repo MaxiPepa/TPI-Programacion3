@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 #region Injection
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IOfferRepository, OfferRepository>();
+builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
 #endregion
 
 var app = builder.Build();
