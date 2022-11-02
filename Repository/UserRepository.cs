@@ -1,4 +1,6 @@
 ﻿using TPI_Programación3.Entities;
+using TPI_Programación3.Helpers;
+using TPI_Programación3.Models;
 
 namespace TPI_Programación3.Repository
 {
@@ -36,6 +38,11 @@ namespace TPI_Programación3.Repository
         public void Edit(int id, string newPassword)
         {
             storedUsers.First(x => x.Id == id).Password = newPassword;
+        }
+
+        public User? ValidateUser(AuthRequest dto)
+        {
+            return storedUsers.SingleOrDefault(u => u.FullName == dto.FullName && u.Password == Security.CreateSHA512(dto.Password));
         }
     }
 }
