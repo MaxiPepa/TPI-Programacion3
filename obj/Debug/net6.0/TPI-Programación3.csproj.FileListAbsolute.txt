@@ -52,3 +52,10 @@ C:\Users\gbort\Desktop\PROYECYOS\TP-programacion III\TPI-Programacion3\obj\Debug
 C:\Users\gbort\Desktop\PROYECYOS\TP-programacion III\TPI-Programacion3\obj\Debug\net6.0\TPI-Programación3.csproj.CopyComplete
 C:\Users\gbort\Desktop\PROYECYOS\TP-programacion III\TPI-Programacion3\obj\Debug\net6.0\TPI-Programación3.genruntimeconfig.cache
 C:\Users\gbort\Desktop\PROYECYOS\TP-programacion III\TPI-Programacion3\obj\Debug\net6.0\ref\TPI-Programación3.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
