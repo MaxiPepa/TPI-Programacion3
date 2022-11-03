@@ -59,3 +59,7 @@ C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0
 C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Maxi\Documents\GitHub\Programacion 3\TPI-Programacion3\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll

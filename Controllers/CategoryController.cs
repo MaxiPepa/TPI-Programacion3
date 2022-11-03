@@ -9,6 +9,7 @@ namespace TPI_Programación3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
