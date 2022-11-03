@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TPI_Programación3.Entities;
 using TPI_Programación3.Models;
@@ -6,6 +7,8 @@ using TPI_Programación3.Repository;
 
 namespace TPI_Programación3.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
