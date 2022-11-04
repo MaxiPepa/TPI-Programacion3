@@ -59,6 +59,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IOfferRepository, OfferRepository>();
 builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<TridentExchangeDBContext>();
 #endregion
 
 var app = builder.Build();
