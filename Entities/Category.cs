@@ -17,5 +17,11 @@ namespace TPI_Programación3.Entities
             Name = name;
             OfferQuantity = offerQuantity;
         }
+
+        public Category()
+        {
+
+        }
+            
     }
 }

@@ -49,9 +49,9 @@ namespace TPI_Programación3.Controllers
                 _categoryRepository.Delete(name);
                 return Ok("Succesfully deleted");
             }
-            catch
+            catch(Exception error)
             {
-                return Problem("Category not found");
+                return Problem(error.Message);
             }
         }
 
@@ -62,7 +62,12 @@ namespace TPI_Programación3.Controllers
             try
             {
                 List<Category> categories = _categoryRepository.GetAll();
-                Category category = new(categories.Max(x => x.Id) + 1, dto.Name, dto.OfferQuantity);
+
+                Category category = new()
+                {
+                    Name = dto.Name,
+                    OfferQuantity = dto.OfferQuantity
+                };
 
                 CategoryResponse response = new()
                 {
@@ -88,9 +93,9 @@ namespace TPI_Programación3.Controllers
                 _categoryRepository.EditName(id, newValue);
                 return Ok("Succesfully edited");
             }
-            catch
+            catch (Exception error)
             {
-                return Problem("Category not found");
+                return Problem(error.Message);
             }
         }
 
@@ -103,9 +108,9 @@ namespace TPI_Programación3.Controllers
                 _categoryRepository.EditOfferQuantity(id, newValue);
                 return Ok("Succesfully edited");
             }
-            catch
+            catch (Exception error)
             {
-                return Problem("Category not found");
+                return Problem(error.Message);
             }
         }
     }

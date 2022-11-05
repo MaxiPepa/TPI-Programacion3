@@ -1,41 +1,58 @@
-﻿using TPI_Programación3.Entities;
+﻿using TPI_Programación3.DBContext;
+using TPI_Programación3.Entities;
 
 namespace TPI_Programación3.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private List<Category> storedCategories = new()
+        private readonly TridentExchangeDBContext _context;
+
+        public CategoryRepository(TridentExchangeDBContext context)
         {
-            new Category(1, "Electrodomésticos", 10),
-            new Category(2, "Vehiculo", 5),
-            new Category(3, "Inmueble", 2),
-            new Category(4, "Mundial", 20)
-        };
+            _context = context;
+        }
 
         public List<Category> GetAll()
         {
-            return storedCategories;
+            return _context.Categories.ToList();
         }
 
         public void Add(Category category)
         {
-            storedCategories.Add(category);
+            try
+            {
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Error in the category adding or invalid parameters");
+            }
         }
 
         public void Delete(string name)
         {
-            storedCategories.Remove(storedCategories.First(x => x.Name == name));
+            try
+            {
+                _context.Categories.Remove(_context.Categories.First(x => x.Name == name));
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Category not found");
+            }
         }
 
         public void EditName(int id, string newValue)
         {
             try
             {
-                storedCategories.First(x => x.Id == id).Name = newValue;
+                _context.Categories.First(x => x.Id == id).Name = newValue;
+                _context.SaveChanges ();
             }
             catch
             {
-                throw new Exception();
+                throw new Exception("Category not found or invalid parameters");
             }
         }
 
@@ -43,11 +60,12 @@ namespace TPI_Programación3.Repository
         {
             try
             {
-                storedCategories.First(x => x.Id == id).OfferQuantity = newValue;
+                _context.Categories.First(x => x.Id == id).OfferQuantity = newValue;
+                _context.SaveChanges();
             }
             catch
             {
-                throw new Exception();
+                throw new Exception("Category not found or invalid parameters");
             }
         }
     }
