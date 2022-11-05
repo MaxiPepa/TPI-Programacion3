@@ -28,5 +28,10 @@ namespace TPI_Programación3.Entities
             Role = role;
         }
 
+        public User()
+        {
+
+        }
+
     }
 }

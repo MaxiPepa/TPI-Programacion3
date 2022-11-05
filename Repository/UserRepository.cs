@@ -22,12 +22,19 @@ namespace TPI_Programación3.Repository
 
         public List<User> GetAll()
         {
-            return _context.Users;
+            return _context.Users.ToList();
         }
 
         public void Add(User user)
         {
-            _context.Users.Add(user);
+            try
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+            }catch
+            {
+
+            }
         }
 
         public void Delete(int id)
@@ -42,6 +49,7 @@ namespace TPI_Programación3.Repository
 
         public User? ValidateUser(AuthRequest dto)
         {
+            var pass = Security.CreateSHA512(dto.Password);
             return _context.Users.SingleOrDefault(u => u.FullName == dto.FullName && u.Password == Security.CreateSHA512(dto.Password));
         }
     }

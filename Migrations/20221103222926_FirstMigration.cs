@@ -104,27 +104,27 @@ namespace TPI_Programación3.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FullName", "Password", "Role" },
-                values: new object[] { 1, "alejo@gmail.com", "Alejo", "4f22a5b713259a8b3e6d47c9073d7eef25e6ced4c20cbe49abaaa2e80b01e4e37c1a7c16891810668dd9a6bd88f259bbf8b7a672d37e785c3f2f3aa0b7169b54", "Common" });
+                values: new object[] { 1, "alejo@gmail.com", "Alejo", "3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2", "Common" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FullName", "Password", "Role" },
-                values: new object[] { 2, "gaston_elcapo@gmail.com", "Gaston", "ee02b3dd5b2c06e4e61888d141998abac194d57692f77ae7a28d748fdf9b9f28f756d980687f7290f1306857edf3fe01f8ebf4626880d49a33e029399cb2d700", "Common" });
+                values: new object[] { 2, "gaston_elcapo@gmail.com", "Gaston", "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f", "Common" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FullName", "Password", "Role" },
-                values: new object[] { 3, "elmassi@gmail.com", "Maxi", "24d88843644d18578f99a53015a0aa2a9daadde962419591c9695bac2f0c0a4db32a6fbab93ebbd754cdfdd972670a9245706047b83dc853fdea83af2ba14c80", "Common" });
+                values: new object[] { 3, "elmassi@gmail.com", "Maxi", "ca9879bd727ba3bd815f05fe6b9e4640c774b61cc8f141295542cefc1b7b8fc6e3daf3f656555cdec355894e7af48964e88994d960f41ba8f61f7a05d5ddbd07", "Common" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FullName", "Password", "Role" },
-                values: new object[] { 4, "milton_tucson_tuki@gmail.com", "Milton", "39548e0ef3daf8dcbfb196b886e44367ba1c45d33761d1fe3e1c4d1e77408a539fb9bb88a6415c9f8d168ed2183ebf1ca4e64e0045c5956b69dae68612bae35e", "Administrator" });
+                values: new object[] { 4, "milton_tucson_tuki@gmail.com", "Milton", "b5ba77af1f7bda735894e746a199acb1d2c836424da2fc46bebb55423dccbff871877a30fab77a31e47b0a29ea0154882e532e9a29b220a8f2958773313bbb2a", "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FullName", "Password", "Role" },
-                values: new object[] { 5, "pedrito@gmail.com", "Pedro", "0e5fd7d30f43897ef1247b4f555a144170c112b2195817d38def4f86ece0bc4b62d5068678522da4109c424d57a942de6ff6f79396fd8c40e70c423a72d66c6a", "Administrator" });
+                values: new object[] { 5, "pedrito@gmail.com", "Pedro", "d67e72421ee3e9e68ca4b6e8da288f406ad976f5371945790d95861398d39064a4fe66f021ce87b63417150545df9a98a76da5cf012f7c908851647bcc2fa4fd", "Administrator" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

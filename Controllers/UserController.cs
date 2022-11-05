@@ -78,7 +78,13 @@ namespace TPI_Programación3.Controllers
             try
             {
                 List<User> users = _userRepository.GetAll();
-                User user = new(users.Max(x => x.Id) + 1, dto.FullName, dto.Email, dto.Password, dto.Role);
+                User user = new()
+                {
+                    FullName=dto.FullName,
+                    Email=dto.Email,
+                    Password=dto.Password,
+                    Role=dto.Role,
+                };
 
                 UserResponse response = new()
                 {

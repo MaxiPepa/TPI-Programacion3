@@ -56,10 +56,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Injection
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IOfferRepository, OfferRepository>();
-builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<TridentExchangeDBContext>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 #endregion
 
 var app = builder.Build();
