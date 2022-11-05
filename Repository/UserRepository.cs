@@ -14,10 +14,16 @@ namespace TPI_Programación3.Repository
             _context = context;
         }
 
-
         public User? GetOne(int id)
         {
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Users.First(x => x.Id == id);
+            }
+            catch
+            {
+                throw new Exception("User not found");
+            }
         }
 
         public List<User> GetAll()
@@ -31,20 +37,37 @@ namespace TPI_Programación3.Repository
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
-            }catch
+            } 
+            catch
             {
-
+                throw new Exception("Error in the user adding or invalid parameters");
             }
         }
 
         public void Delete(int id)
         {
-            _context.Users.Remove(_context.Users.First(x => x.Id == id));
+            try
+            {
+                _context.Users.Remove(_context.Users.First(x => x.Id == id));
+                _context.SaveChanges();
+            } 
+            catch
+            {
+                throw new Exception("User not found");
+            }
         }
 
         public void Edit(int id, string newPassword)
         {
-            _context.Users.First(x => x.Id == id).Password = newPassword;
+            try
+            {
+                _context.Users.First(x => x.Id == id).Password = newPassword;
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("User not found or invalid parameters");
+            }
         }
 
         public User? ValidateUser(AuthRequest dto)

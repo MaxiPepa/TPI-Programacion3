@@ -49,21 +49,14 @@ namespace TPI_Programación3.Controllers
             {
                 User? user = _userRepository.GetOne(id);
 
-                if (user != null)
+                UserResponse response = new()
                 {
-                    UserResponse response = new()
-                    {
-                        FullName = user.FullName,
-                        Email = user.Email,
-                        Role = user.Role
-                    };
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    Role = user.Role
+                };
 
-                    return Ok(response);
-                }
-                else
-                {
-                    throw new Exception();
-                }
+                return Ok(response);
             } 
             catch (Exception error)
             {
@@ -112,9 +105,9 @@ namespace TPI_Programación3.Controllers
                 return Ok("Succesfully deleted");
 
             }
-            catch
+            catch (Exception error)
             {
-                return Problem("User not found");
+                return Problem(error.Message);
             }
         }
 
@@ -127,9 +120,9 @@ namespace TPI_Programación3.Controllers
                 _userRepository.Edit(id, newPassword);
                 return Ok("Succesfully edited");
             }
-            catch
+            catch (Exception error)
             {
-                return Problem("Offer not found");
+                return Problem(error.Message);
             }
         }
     }
