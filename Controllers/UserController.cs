@@ -38,7 +38,7 @@ namespace TPI_Programación3.Controllers
                 userList.Add(response);
             }
 
-            return Created("List of users", userList);
+            return Ok(userList);
         }
 
         [HttpGet]

@@ -42,7 +42,7 @@ namespace TPI_Programación3.Controllers
                 offerList.Add(response);
             }
 
-            return Created("List of offers", offerList);
+            return Ok(offerList);
         }
 
 

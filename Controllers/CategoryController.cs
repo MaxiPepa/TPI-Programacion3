@@ -37,7 +37,7 @@ namespace TPI_Programación3.Controllers
                 categoryList.Add(response);
             }
 
-            return Created("List of categories", categoryList);
+            return Ok(categoryList);
         }
 
         [HttpDelete]
