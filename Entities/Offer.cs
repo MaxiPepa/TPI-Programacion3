@@ -25,5 +25,9 @@ namespace TPI_Programación3.Entities
             CreatorEmail = creatorEmail;
             PreferedItem = preferedItem;
         }
+        public Offer ()
+        {
+
+        }
     }
 }

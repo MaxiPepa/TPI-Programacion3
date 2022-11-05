@@ -55,9 +55,9 @@ namespace TPI_Programación3.Controllers
                 _offerRepository.Delete(id);
                 return Ok("Succesfully deleted");
             }
-            catch
+            catch(Exception error)
             {
-                return Problem("Offer not found");
+                return Problem(error.Message);
             }
         }
 
@@ -68,8 +68,17 @@ namespace TPI_Programación3.Controllers
             try
             {
                 List<Offer> offers = _offerRepository.GetAll();
-                Offer offer = new(offers.Max(x => x.Id) + 1, dto.Name, dto.Description, dto.Category, dto.ImgLink, dto.CreatorEmail, dto.PreferedItem);
 
+                Offer offer = new()
+                {
+                    Name = dto.Name,
+                    Description = dto.Description,
+                    Category = dto.Category,
+                    ImgLink = dto.ImgLink,
+                    CreatorEmail = dto.CreatorEmail,
+                    PreferedItem = dto.PreferedItem
+                };
+                
                 OfferResponse response = new()
                 {
                     Name = offer.Name,
@@ -99,9 +108,9 @@ namespace TPI_Programación3.Controllers
                 _offerRepository.Edit(id, newValue, field);
                 return Ok("Succesfully edited");
             }
-            catch
+            catch(Exception error)
             {
-                return Problem("Offer not found");
+                return Problem(error.Message);
             }
         }
     }

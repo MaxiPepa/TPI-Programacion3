@@ -1,55 +1,79 @@
-﻿using TPI_Programación3.Entities;
+﻿using TPI_Programación3.DBContext;
+using TPI_Programación3.Entities;
 
 namespace TPI_Programación3.Repository
 {
     public class OfferRepository : IOfferRepository
     {
-        private List<Offer> storedOffers = new()
+
+        private readonly TridentExchangeDBContext _context;
+
+        public OfferRepository(TridentExchangeDBContext context)
         {
-            new Offer(1, "Licuadora", "Es literalmente una licuadora", "Electrodoméstico", "https://url24.top/vJGZp", "alejo@gmail.com", "Batidora"),
-            new Offer(2, "Tostadora", "Sirve para tostar pan", "Electrodoméstico", "https://url24.top/AvyPV", "gaston_elcapo@gmail.com", "Tostadora"),
-            new Offer(3, "Auto", "Corsita 2009", "Vehiculo", "https://url24.top/hqPKD", "elmassi@gmail.com", "Auto"),
-            new Offer(4, "Casa", "Casa dos pisos", "Inmueble", "https://url24.top/lPhra", "milton_tucson_tuki@gmail.com", "Vivienda"),
-            new Offer(5, "Figurita", "La figurita de Messi", "Mundial", "https://url24.top/TvJrw", "pedrito@gmail.com", "Mundial"),
-        };
-        
+            _context = context;
+        }
+
         public List<Offer> GetAll()
         {
-            return storedOffers;
+            return _context.Offers.ToList();
         }
         public void Add(Offer offer)
         {
-            storedOffers.Add(offer);
+            try
+            {
+                _context.Offers.Add(offer);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Error in the offer adding or invalid parameters");
+            }
         }
         public void Delete(int id)
         {
-            storedOffers.Remove(storedOffers.First(x=> x.Id == id));
+            try
+            {
+                _context.Offers.Remove(_context.Offers.First(x=> x.Id == id));
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Offer not found");
+            }
         }
 
         public void Edit(int id, string newValue, string field)
         {
-            switch (field)
+            try
             {
-                case "name":
-                    storedOffers.First(x => x.Id == id).Name = newValue;
-                    break;
-                case "description":
-                    storedOffers.First(x => x.Id == id).Description = newValue;
-                    break;
-                case "category":
-                    storedOffers.First(x => x.Id == id).Category = newValue;
-                    break;
-                case "img":
-                    storedOffers.First(x => x.Id == id).ImgLink = newValue;
-                    break;
-                case "email":
-                    storedOffers.First(x => x.Id == id).CreatorEmail = newValue;
-                    break;
-                case "preference":
-                    storedOffers.First(x => x.Id == id).PreferedItem = newValue;
-                    break;
-                default:
-                    throw new Exception();
+                switch (field)
+                {
+                    case "name":
+                        _context.Offers.First(x => x.Id == id).Name = newValue;
+                        break;
+                    case "description":
+                        _context.Offers.First(x => x.Id == id).Description = newValue;
+                        break;
+                    case "category":
+                        _context.Offers.First(x => x.Id == id).Category = newValue;
+                        break;
+                    case "img":
+                        _context.Offers.First(x => x.Id == id).ImgLink = newValue;
+                        break;
+                    case "email":
+                        _context.Offers.First(x => x.Id == id).CreatorEmail = newValue;
+                        break;
+                    case "preference":
+                        _context.Offers.First(x => x.Id == id).PreferedItem = newValue;
+                        break;
+                    default:
+                        throw new Exception();
+                }
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Offer not found or invalid parameters");
             }
         }
     }
