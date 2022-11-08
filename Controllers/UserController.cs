@@ -71,6 +71,9 @@ namespace TPI_Programación3.Controllers
             try
             {
                 List<User> users = _userRepository.GetAll();
+
+                ValidateUsedEmail(users, dto.Email);
+
                 User user = new()
                 {
                     FullName=dto.FullName,
@@ -123,6 +126,16 @@ namespace TPI_Programación3.Controllers
             catch (Exception error)
             {
                 return Problem(error.Message);
+            }
+        }
+
+        [NonAction]
+        public void ValidateUsedEmail(List<User> users, string email)
+        {
+            var isUsed = users.FirstOrDefault(u => u.Email == email);
+            if (isUsed != null)
+            {
+                throw new Exception("Email already in use.");
             }
         }
     }

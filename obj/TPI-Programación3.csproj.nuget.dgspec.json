@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gbort\\Desktop\\PROYECYOS\\clone nuevo tp Programacion III\\TPI-Programacion3\\TPI-Programación3.csproj": {}
+    "C:\\Users\\Maxi\\Documents\\GitHub\\Programacion 3\\TPI-Programacion3\\TPI-Programación3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gbort\\Desktop\\PROYECYOS\\clone nuevo tp Programacion III\\TPI-Programacion3\\TPI-Programación3.csproj": {
+    "C:\\Users\\Maxi\\Documents\\GitHub\\Programacion 3\\TPI-Programacion3\\TPI-Programación3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gbort\\Desktop\\PROYECYOS\\clone nuevo tp Programacion III\\TPI-Programacion3\\TPI-Programación3.csproj",
+        "projectUniqueName": "C:\\Users\\Maxi\\Documents\\GitHub\\Programacion 3\\TPI-Programacion3\\TPI-Programación3.csproj",
         "projectName": "TPI-Programación3",
-        "projectPath": "C:\\Users\\gbort\\Desktop\\PROYECYOS\\clone nuevo tp Programacion III\\TPI-Programacion3\\TPI-Programación3.csproj",
-        "packagesPath": "C:\\Users\\gbort\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gbort\\Desktop\\PROYECYOS\\clone nuevo tp Programacion III\\TPI-Programacion3\\obj\\",
+        "projectPath": "C:\\Users\\Maxi\\Documents\\GitHub\\Programacion 3\\TPI-Programacion3\\TPI-Programación3.csproj",
+        "packagesPath": "C:\\Users\\Maxi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Maxi\\Documents\\GitHub\\Programacion 3\\TPI-Programacion3\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\gbort\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Maxi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
