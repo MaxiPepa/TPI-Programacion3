@@ -12,13 +12,17 @@ namespace TPI_Programación3.Controllers
     [Authorize]
     public class CategoryController : Controller
     {
+
+        #region Costructor
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
+        #endregion
 
+        #region Endpoints
         [HttpGet]
         [Route("listCategories")]
         public IActionResult ListCategories()
@@ -113,5 +117,6 @@ namespace TPI_Programación3.Controllers
                 return Problem(error.Message);
             }
         }
+        #endregion
     }
 }

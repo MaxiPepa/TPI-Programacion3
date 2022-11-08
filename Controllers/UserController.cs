@@ -12,13 +12,17 @@ namespace TPI_Programación3.Controllers
     [Authorize]
     public class UserController : Controller
     {
+
+        #region Costructor
         private readonly IUserRepository _userRepository;
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
+        #endregion
 
+        #region Endpoints
         [HttpGet]
         [Route("listAll")]
         public IActionResult ListAll()
@@ -138,5 +142,6 @@ namespace TPI_Programación3.Controllers
                 throw new Exception("Email already in use.");
             }
         }
+        #endregion
     }
 }

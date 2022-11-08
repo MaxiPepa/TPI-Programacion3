@@ -12,13 +12,17 @@ namespace TPI_Programación3.Controllers
     [Authorize]
     public class OfferController : Controller
     {
+
+        #region Costructor
         private readonly IOfferRepository _offerRepository;
 
         public OfferController(IOfferRepository offerRepository)
         {
             _offerRepository = offerRepository;
         }
+        #endregion
 
+        #region Endpoints
         [HttpGet]
         [Route("listOffer")]
         public IActionResult ListOffers()
@@ -113,5 +117,6 @@ namespace TPI_Programación3.Controllers
                 return Problem(error.Message);
             }
         }
+        #endregion
     }
 }
